@@ -1,14 +1,16 @@
-from typing import List, Union
 import json
+from typing import List, Union
+
+from youtubesearchpython.core.constants import *
 from youtubesearchpython.handlers.componenthandler import ComponentHandler
 from youtubesearchpython.handlers.requesthandler import RequestHandler
-from youtubesearchpython.core.constants import *
 
 
 def overrides(interface_class):
     def overrider(method):
-        assert(method.__name__ in dir(interface_class))
+        assert (method.__name__ in dir(interface_class))
         return method
+
     return overrider
 
 
@@ -28,20 +30,21 @@ class LegacyComponentHandler(RequestHandler, ComponentHandler):
         for mode in modes:
             thumbnails.append('https://img.youtube.com/vi/' + videoId + '/' + mode + '.jpg')
         component = {
-            'index':                          self.index,
-            'id':                             videoId,
-            'link':                           'https://www.youtube.com/watch?v=' + videoId,
-            'title':                          self.__getValue(video, ['title', 'runs', 0, 'text']),
-            'channel':                        self.__getValue(video, ['ownerText', 'runs', 0, 'text']),
-            'duration':                       self.__getValue(video, ['lengthText', 'simpleText']),
-            'views':                          viewCount,
-            'thumbnails':                     thumbnails,
-            'channeId':                       self.__getValue(video, ['ownerText', 'runs', 0, 'navigationEndpoint', 'browseEndpoint', 'browseId']), 
-            'publishTime':                    self.__getValue(video, ['publishedTimeText', 'simpleText']),
+            'index': self.index,
+            'id': videoId,
+            'link': 'https://www.youtube.com/watch?v=' + videoId,
+            'title': self.__getValue(video, ['title', 'runs', 0, 'text']),
+            'channel': self.__getValue(video, ['ownerText', 'runs', 0, 'text']),
+            'duration': self.__getValue(video, ['lengthText', 'simpleText']),
+            'views': viewCount,
+            'thumbnails': thumbnails,
+            'channeId': self.__getValue(video,
+                                        ['ownerText', 'runs', 0, 'navigationEndpoint', 'browseEndpoint', 'browseId']),
+            'publishTime': self.__getValue(video, ['publishedTimeText', 'simpleText']),
         }
         self.index += 1
         return component
-    
+
     @overrides(ComponentHandler)
     def _getPlaylistComponent(self, element: dict) -> dict:
         playlist = element[playlistElementKey]
@@ -52,13 +55,13 @@ class LegacyComponentHandler(RequestHandler, ComponentHandler):
         for mode in modes:
             thumbnails.append('https://img.youtube.com/vi/' + thumbnailVideoId + '/' + mode + '.jpg')
         component = {
-            'index':                          self.index,
-            'id':                             playlistId,
-            'link':                           'https://www.youtube.com/playlist?list=' + playlistId,
-            'title':                          self.__getValue(playlist, ['title', 'simpleText']),
-            'thumbnails':                     thumbnails,
-            'count':                          self.__getValue(playlist, ['videoCount']),
-            'channel':                        self.__getValue(playlist, ['shortBylineText', 'runs', 0, 'text']),
+            'index': self.index,
+            'id': playlistId,
+            'link': 'https://www.youtube.com/playlist?list=' + playlistId,
+            'title': self.__getValue(playlist, ['title', 'simpleText']),
+            'thumbnails': thumbnails,
+            'count': self.__getValue(playlist, ['videoCount']),
+            'channel': self.__getValue(playlist, ['shortBylineText', 'runs', 0, 'text']),
         }
         self.index += 1
         return component
@@ -67,8 +70,8 @@ class LegacyComponentHandler(RequestHandler, ComponentHandler):
     def _getShelfComponent(self, element: dict) -> dict:
         shelf = element[shelfElementKey]
         return {
-            'title':                          self.__getValue(shelf, ['title', 'simpleText']),
-            'elements':                       self.__getValue(shelf, ['content', 'verticalListRenderer', 'items']),
+            'title': self.__getValue(shelf, ['title', 'simpleText']),
+            'elements': self.__getValue(shelf, ['content', 'verticalListRenderer', 'items']),
         }
 
     def __getValue(self, component: dict, path: List[str]) -> Union[str, int, dict]:
@@ -88,6 +91,7 @@ class LegacyComponentHandler(RequestHandler, ComponentHandler):
                     break
         return value
 
+
 class LegacySearchInternal(LegacyComponentHandler):
     exception = False
     resultComponents = []
@@ -102,7 +106,7 @@ class LegacySearchInternal(LegacyComponentHandler):
         self.region = region
         self.continuationKey = None
         self.timeout = None
-    
+
     def result(self) -> Union[str, dict, list, None]:
         '''Returns the search result.
 
@@ -115,7 +119,7 @@ class LegacySearchInternal(LegacyComponentHandler):
             if self.mode == 'dict':
                 return {'search_result': self.resultComponents}
             elif self.mode == 'json':
-                return json.dumps({'search_result': self.resultComponents}, indent = 4)
+                return json.dumps({'search_result': self.resultComponents}, indent=4)
             elif self.mode == 'list':
                 result = []
                 for component in self.resultComponents:
@@ -167,7 +171,8 @@ class SearchVideos(LegacySearchInternal):
             ]
         }
     '''
-    def __init__(self, keyword, offset = 1, mode = 'json', max_results = 20, language = 'en', region = 'US'):
+
+    def __init__(self, keyword, offset=1, mode='json', max_results=20, language='en', region='US'):
         super().__init__(keyword, offset, mode, max_results, language, region)
         self.searchPreferences = 'EgIQAQ%3D%3D'
         self._makeRequest()
@@ -184,6 +189,7 @@ class SearchVideos(LegacySearchInternal):
                     self.resultComponents.append(self._getVideoComponent(shelfElement))
             if len(self.resultComponents) >= self.limit:
                 break
+
 
 class SearchPlaylists(LegacySearchInternal):
     '''
@@ -229,7 +235,8 @@ class SearchPlaylists(LegacySearchInternal):
             ]
         }
     '''
-    def __init__(self, keyword, offset = 1, mode = 'json', max_results = 20, language = 'en', region = 'US'):
+
+    def __init__(self, keyword, offset=1, mode='json', max_results=20, language='en', region='US'):
         super().__init__(keyword, offset, mode, max_results, language, region)
         self.searchPreferences = 'EgIQAw%3D%3D'
         self._makeRequest()

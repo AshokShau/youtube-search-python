@@ -1,13 +1,12 @@
 import copy
-import urllib.request
-import urllib.parse
-
 import re
+import urllib.parse
+import urllib.request
 
-from youtubesearchpython.core.constants import ResultMode
-from youtubesearchpython.core.video import VideoCore
 from youtubesearchpython.core.componenthandler import getValue
+from youtubesearchpython.core.constants import ResultMode
 from youtubesearchpython.core.requests import RequestCore
+from youtubesearchpython.core.video import VideoCore
 
 isYtDLPinstalled = False
 
@@ -25,21 +24,24 @@ class StreamURLFetcherCore(RequestCore):
     '''
     Overrided parent's constructor.
     '''
+
     def __init__(self):
         if isYtDLPinstalled:
             super().__init__()
             self._js_url = None
             self._js = None
-            #self.ytdlp = YoutubeBaseInfoExtractor()
+            # self.ytdlp = YoutubeBaseInfoExtractor()
             self.ytie = YoutubeIE()
             self.ytie.set_downloader(YoutubeDL())
             self._streams = []
         else:
-            raise Exception('ERROR: yt-dlp is not installed. To use this functionality of youtube-search-python, yt-dlp must be installed.')
+            raise Exception(
+                'ERROR: yt-dlp is not installed. To use this functionality of youtube-search-python, yt-dlp must be installed.')
 
     '''
     Saving videoFormats inside a dictionary with key "player_response" for apply_descrambler & apply_signature methods.
     '''
+
     def _getDecipheredURLs(self, videoFormats: dict, formatId: int = None) -> None:
         # We reset our stream list
         # See https://github.com/alexmercerind/youtube-search-python/pull/155#discussion_r790165920

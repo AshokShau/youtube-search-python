@@ -2,7 +2,8 @@
 
 #### Search for YouTube videos, channels & playlists & get video information using link WITHOUT YouTube Data API v3.
 
-##### Important: As of v1.6.1, we no longer use PyTube (see https://github.com/alexmercerind/youtube-search-python/pull/155). You have to install yt-dlp in order to use StreamURLFetcher: `pip install yt-dlp`
+##### Important: As of v1.6.1, we no longer use PyTube (see https://github.com/alexmercerind/youtube-search-python/pull/155). You have to install yt-dlp in order to use StreamURLFetcher:
+`pip install yt-dlp`
 
 Works without YouTube Data API v3 and has zero dependencies.
 
@@ -616,8 +617,8 @@ print(result)
 
 </details>
 
-You may see the [example](https://github.com/alexmercerind/youtube-search-python/blob/main/asyncExample.py) for more information.
-
+You may see the [example](https://github.com/alexmercerind/youtube-search-python/blob/main/asyncExample.py) for more
+information.
 
 ## Advanced
 
@@ -874,7 +875,9 @@ print(videoFormats)
 </details>
 
 #### Get all videos of a channel
+
 You can use a Playlist class for that, alongside some helpful functions.
+
 ```python
 from youtubesearchpython.__future__ import *
 
@@ -921,12 +924,13 @@ Found all the videos.
 
 </details>
 
-
 #### More to the playlists
 
-You can directly instantiate the `Playlist` class as follows to access its information & videos in the `info` and `videos` fields respectively.
+You can directly instantiate the `Playlist` class as follows to access its information & videos in the `info` and
+`videos` fields respectively.
 
-YouTube offers only 100 videos in a single request, for getting more videos present in the playlist, you can check `hasMoreVideos` bool to see if playlist contains more videos.
+YouTube offers only 100 videos in a single request, for getting more videos present in the playlist, you can check
+`hasMoreVideos` bool to see if playlist contains more videos.
 If playlist has more videos, then you can call `getNextVideos` to fetch more videos.
 
 Example below demonstrates a simple way to retrive all videos of a playlist.
@@ -1073,7 +1077,8 @@ print(result)
 
 #### Getting direct stream URL of a video
 
-This class is able fetch video URLs without any additional web requests (that's fast), as one might already have same response at the time of showing it to the user.
+This class is able fetch video URLs without any additional web requests (that's fast), as one might already have same
+response at the time of showing it to the user.
 
 For making use of this functionality, you must install [yt-dlp](https://github.com/yt-dlp/yt-dlp) as a dependency.
 StreamURLFetcher makes slight improvements & changes to YouTube class from [yt-dlp](https://github.com/yt-dlp/yt-dlp).
@@ -1102,7 +1107,9 @@ print(url)
 </details>
 
 #### Get comments of a video
+
 You can use a Comments class for that.
+
 ```python
 from youtubesearchpython.__future__ import *
 
@@ -1139,7 +1146,9 @@ Getting more comments...
 </details>
 
 #### Get first 20 comments of a video
+
 You can use a Comments.get method for that.
+
 ```python
 from youtubesearchpython.__future__ import *
 
@@ -1843,14 +1852,18 @@ print(comments)
 </details>
 
 #### Retrieve video transcript
+
 YouTube auto-generates transcripts (subtitles) for videos. You can retrieve those transcripts using Transcript class:
+
 ```py
 from youtubesearchpython.__future__ import Transcript
 
 print(await Transcript.get("https://www.youtube.com/watch?v=-1xu0IP35FI"))
 ```
 
-In response, you'll get available languages with `params` parameter. If you want to retrieve a different language, you have to pass the function that parameter. Example:
+In response, you'll get available languages with `params` parameter. If you want to retrieve a different language, you
+have to pass the function that parameter. Example:
+
 ```py
 from youtubesearchpython.__future__ import Transcript
 
@@ -1930,10 +1943,11 @@ print(transcript_2)
    ]
 }
 ```
+
 </details>
 
-
 #### Retrieve channel info
+
 ```py
 from youtubesearchpython.__future__ import Channel
 
@@ -2033,9 +2047,11 @@ print(await Channel.get("UC_aEa8K-EOJ3D6gOs7HcyNg"))
     "country": "United Kingdom"
 }
 ```
+
 </details>
 
 #### Retrieve channel playlists
+
 ```py
 from youtubesearchpython.__future__ import Channel
 
@@ -2054,6 +2070,7 @@ while channel.has_more_playlists():
 30
 49
 ```
+
 </details>
 
 ## Dependencies

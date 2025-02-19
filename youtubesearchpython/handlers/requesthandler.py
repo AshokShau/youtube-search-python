@@ -1,9 +1,10 @@
-from urllib.request import Request, urlopen
-from urllib.parse import urlencode
-import json
 import copy
-from youtubesearchpython.handlers.componenthandler import ComponentHandler
+import json
+from urllib.parse import urlencode
+from urllib.request import Request, urlopen
+
 from youtubesearchpython.core.constants import *
+from youtubesearchpython.handlers.componenthandler import ComponentHandler
 
 
 class RequestHandler(ComponentHandler):
@@ -24,8 +25,8 @@ class RequestHandler(ComponentHandler):
             'https://www.youtube.com/youtubei/v1/search' + '?' + urlencode({
                 'key': searchKey,
             }),
-            data = requestBodyBytes,
-            headers = {
+            data=requestBodyBytes,
+            headers={
                 'Content-Type': 'application/json; charset=utf-8',
                 'Content-Length': len(requestBodyBytes),
                 'User-Agent': userAgent,
@@ -35,7 +36,7 @@ class RequestHandler(ComponentHandler):
             self.response = urlopen(request, timeout=self.timeout).read().decode('utf_8')
         except:
             raise Exception('ERROR: Could not make request.')
-    
+
     def _parseSource(self) -> None:
         try:
             if not self.continuationKey:

@@ -1,11 +1,9 @@
 import copy
-import json
-from typing import Union, List
 from urllib.parse import urlencode
 
+from youtubesearchpython.core.componenthandler import getValue
 from youtubesearchpython.core.constants import *
 from youtubesearchpython.core.requests import RequestCore
-from youtubesearchpython.core.componenthandler import getValue, getVideoId
 
 
 class ChannelCore(RequestCore):
@@ -53,7 +51,7 @@ class ChannelCore(RequestCore):
             thumbnails.extend(getValue(response, ["microformat", "microformatDataRenderer", "thumbnail", "thumbnails"]))
         except:
             pass
-        
+
         tabData: dict = {}
         playlists: list = []
 
@@ -62,7 +60,8 @@ class ChannelCore(RequestCore):
             title = getValue(tab, ["tabRenderer", "title"])
             if title == "Playlists":
                 playlist = getValue(tab,
-                                    ["tabRenderer", "content", "sectionListRenderer", "contents", 0, "itemSectionRenderer",
+                                    ["tabRenderer", "content", "sectionListRenderer", "contents", 0,
+                                     "itemSectionRenderer",
                                      "contents", 0, "gridRenderer", "items"])
                 if playlist is not None and getValue(playlist, [0, "gridPlaylistRenderer"]):
                     for i in playlist:
@@ -108,10 +107,13 @@ class ChannelCore(RequestCore):
 
         self.continuation = None
 
-        response = getValue(response, ["onResponseReceivedActions", 0, "appendContinuationItemsAction", "continuationItems"])
+        response = getValue(response,
+                            ["onResponseReceivedActions", 0, "appendContinuationItemsAction", "continuationItems"])
         for i in response:
             if getValue(i, ["continuationItemRenderer"]):
-                self.continuation = getValue(i, ["continuationItemRenderer", "continuationEndpoint", "continuationCommand", "token"])
+                self.continuation = getValue(i,
+                                             ["continuationItemRenderer", "continuationEndpoint", "continuationCommand",
+                                              "token"])
                 break
             elif getValue(i, ['gridPlaylistRenderer']):
                 self.result["playlists"].append(self.playlist_parse(getValue(i, ['gridPlaylistRenderer'])))

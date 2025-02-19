@@ -2,19 +2,19 @@ import copy
 from typing import Union
 
 from youtubesearchpython.core import VideoCore
+from youtubesearchpython.core.channel import ChannelCore
 from youtubesearchpython.core.comments import CommentsCore
 from youtubesearchpython.core.constants import ResultMode, ChannelRequestType
 from youtubesearchpython.core.hashtag import HashtagCore
 from youtubesearchpython.core.playlist import PlaylistCore
 from youtubesearchpython.core.suggestions import SuggestionsCore
 from youtubesearchpython.core.transcript import TranscriptCore
-from youtubesearchpython.core.channel import ChannelCore
 
 
 class Video:
     @staticmethod
     async def get(videoLink: str, resultMode: int = ResultMode.dict, timeout: int = 2, get_upload_date: bool = False) -> \
-    Union[dict, None]:
+            Union[dict, None]:
         '''Fetches information and formats  for the given video link or ID.
         Returns None if video is unavailable.
 

@@ -1,12 +1,11 @@
 import copy
 import json
-from typing import Union, List
+from typing import Union
 from urllib.parse import urlencode
 
+from youtubesearchpython.core.componenthandler import getValue, getVideoId
 from youtubesearchpython.core.constants import *
 from youtubesearchpython.core.requests import RequestCore
-from youtubesearchpython.core.componenthandler import getValue, getVideoId
-
 
 CLIENTS = {
     "MWEB": {
@@ -53,7 +52,8 @@ CLIENTS = {
 
 
 class VideoCore(RequestCore):
-    def __init__(self, videoLink: str, componentMode: str, resultMode: int, timeout: int, enableHTML: bool, overridedClient: str = "ANDROID"):
+    def __init__(self, videoLink: str, componentMode: str, resultMode: int, timeout: int, enableHTML: bool,
+                 overridedClient: str = "ANDROID"):
         super().__init__()
         self.timeout = timeout
         self.resultMode = resultMode
@@ -61,7 +61,7 @@ class VideoCore(RequestCore):
         self.videoLink = videoLink
         self.enableHTML = enableHTML
         self.overridedClient = overridedClient
-    
+
     # We call this when we use only HTML
     def post_request_only_html_processing(self):
         self.__getVideoComponent(self.componentMode)
@@ -174,6 +174,8 @@ class VideoCore(RequestCore):
                 }
             )
         if self.enableHTML:
-            videoComponent["publishDate"] = getValue(self.HTMLresponseSource, ['microformat', 'playerMicroformatRenderer', 'publishDate'])
-            videoComponent["uploadDate"] = getValue(self.HTMLresponseSource, ['microformat', 'playerMicroformatRenderer', 'uploadDate'])
+            videoComponent["publishDate"] = getValue(self.HTMLresponseSource,
+                                                     ['microformat', 'playerMicroformatRenderer', 'publishDate'])
+            videoComponent["uploadDate"] = getValue(self.HTMLresponseSource,
+                                                    ['microformat', 'playerMicroformatRenderer', 'uploadDate'])
         self.__videoComponent = videoComponent

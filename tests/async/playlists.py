@@ -1,14 +1,16 @@
-from youtubesearchpython.__future__ import *
 import asyncio
+
+from youtubesearchpython.__future__ import *
+
 
 async def main():
     playlist = await Playlist.get('https://www.youtube.com/playlist?list=PLRBp0Fe2GpgmsW46rJyudVFlY6IYjFBIK')
     print(playlist)
     playlistInfo = await Playlist.getInfo('https://www.youtube.com/playlist?list=PLRBp0Fe2GpgmsW46rJyudVFlY6IYjFBIK')
     print(playlistInfo)
-    playlistVideos = await Playlist.getVideos('https://www.youtube.com/playlist?list=PLRBp0Fe2GpgmsW46rJyudVFlY6IYjFBIK')
+    playlistVideos = await Playlist.getVideos(
+        'https://www.youtube.com/playlist?list=PLRBp0Fe2GpgmsW46rJyudVFlY6IYjFBIK')
     print(playlistVideos)
-
 
     playlist = await Playlist.get('https://www.youtube.com/playlist?list=PLRBp0Fe2GpgmsW46rJyudVFlY6IYjFBIK')
     print(playlist)

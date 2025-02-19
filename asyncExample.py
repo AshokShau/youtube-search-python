@@ -1,45 +1,39 @@
 from youtubesearchpython.__future__ import *
+
 import asyncio
 
+from youtubesearchpython import VideoSortOrder
+
+
 async def main():
-    '''
+    """
     Searches for all types of results like videos, channels & playlists in YouTube.
     'type' key in the JSON/Dictionary may be used to differentiate between the types of result.
-    '''
-    search = Search('NoCopyrightSounds', limit = 1, language = 'en', region = 'US')
-    result = await search.next()
+    """
+    _search = Search('NoCopyrightSounds', limit=1, language='en', region='US')
+    result = await _search.next()
     print(result)
-
-
-
 
     '''
     Searches only for videos in YouTube.
     '''
-    videosSearch = VideosSearch('NoCopyrightSounds', limit = 10, language = 'en', region = 'US')
+    videosSearch = VideosSearch('NoCopyrightSounds', limit=10, language='en', region='US')
     videosResult = await videosSearch.next()
     print(videosResult)
-
-
-
 
     '''
     Searches only for channels in YouTube.
     '''
-    channelsSearch = ChannelsSearch('NoCopyrightSounds', limit = 1, language = 'en', region = 'US')
+    channelsSearch = ChannelsSearch('NoCopyrightSounds', limit=1, language='en', region='US')
     channelsResult = await channelsSearch.next()
     print(channelsResult)
-
-
-
 
     '''
     Searches only for playlists in YouTube.
     '''
-    playlistsSearch = PlaylistsSearch('NoCopyrightSounds', limit = 1, language = 'en', region = 'US')
+    playlistsSearch = PlaylistsSearch('NoCopyrightSounds', limit=1, language='en', region='US')
     playlistsResult = await playlistsSearch.next()
     print(playlistsResult)
-
 
     playlist = Playlist('https://www.youtube.com/playlist?list=PLRBp0Fe2GpgmsW46rJyudVFlY6IYjFBIK')
     while playlist.hasMoreVideos:
@@ -48,9 +42,6 @@ async def main():
         print(f'Videos Retrieved: {len(playlist.videos)}')
 
     print('Found all the videos.')
-
-
-
 
     '''
     Can be used to get search results with custom defined filters.
@@ -67,45 +58,38 @@ async def main():
     If this much control isn't enough then, you may pass custom string yourself by seeing the YouTube query in any web browser e.g. 
     "EgQIBRAB" from "https://www.youtube.com/results?search_query=NoCopyrightSounds&sp=EgQIBRAB" may be passed as second parameter to get only videos, which are uploaded this year.
     '''
-    customSearch = CustomSearch('NoCopyrightSounds', VideoSortOrder.uploadDate, language = 'en', region = 'US')
+    customSearch = CustomSearch('NoCopyrightSounds', VideoSortOrder.uploadDate, language='en', region='US')
     customResult = await customSearch.next()
     print(customResult)
 
-
-    search = ChannelSearch('Watermelon Sugar', "UCZFWPqqPkFlNwIxcpsLOwew")
-    result = await search.next()
+    _search = ChannelSearch('Watermelon Sugar', "UCZFWPqqPkFlNwIxcpsLOwew")
+    result = await _search.next()
     print(result)
-
-
-
 
     '''
     Getting search results from the next pages on YouTube.
     Generally you'll get maximum of 20 videos in one search, for getting subsequent results, you may call `next` method.
     '''
-    search = VideosSearch('NoCopyrightSounds')
+    _search = VideosSearch('NoCopyrightSounds')
     index = 0
     ''' Getting result on 1st page '''
-    result = await search.next()
+    result = await _search.next()
     ''' Displaying the result '''
     for video in result['result']:
         index += 1
         print(f'{index} - {video["title"]}')
     ''' Getting result on 2nd page '''
-    result = await search.next()
+    result = await _search.next()
     ''' Displaying the result '''
     for video in result['result']:
         index += 1
         print(f'{index} - {video["title"]}')
     ''' Getting result on 3rd page '''
-    result = await search.next()
+    result = await _search.next()
     ''' Displaying the result '''
     for video in result['result']:
         index += 1
         print(f'{index} - {video["title"]}')
-
-
-
 
     '''
     Getting information about video or its formats using video link or video ID.
@@ -123,9 +107,6 @@ async def main():
     videoFormats = await Video.getFormats('z0GKGpObgPY')
     print(videoFormats)
 
-
-
-
     '''
     Getting information about playlist or videos in it using link.
 
@@ -138,7 +119,8 @@ async def main():
     print(playlist)
     playlistInfo = await Playlist.getInfo('https://www.youtube.com/playlist?list=PLRBp0Fe2GpgmsW46rJyudVFlY6IYjFBIK')
     print(playlistInfo)
-    playlistVideos = await Playlist.getVideos('https://www.youtube.com/playlist?list=PLRBp0Fe2GpgmsW46rJyudVFlY6IYjFBIK')
+    playlistVideos = await Playlist.getVideos(
+        'https://www.youtube.com/playlist?list=PLRBp0Fe2GpgmsW46rJyudVFlY6IYjFBIK')
     print(playlistVideos)
 
     '''
@@ -149,27 +131,19 @@ async def main():
     playlist = await Playlist.get('https://www.youtube.com/watch?v=bplUXwTTgbI&list=PL6edxAMqu2xfxgbf7Q09hSg1qCMfDI7IZ')
     print(playlist)
 
-
-
     '''
     Getting search suggestions from YouTube.
     You may show search suggestions to users before making any search.
     '''
-    suggestions = await Suggestions.get('NoCopyrightSounds', language = 'en', region = 'US')
+    suggestions = await Suggestions.get('NoCopyrightSounds', language='en', region='US')
     print(suggestions)
-
-
-
 
     '''
     Getting videos by hashtag.
     '''
-    hashtag = Hashtag('ncs', limit = 1)
+    hashtag = Hashtag('ncs', limit=1)
     result = await hashtag.next()
     print(result)
-
-
-
 
     '''
     Getting direct stream URL for a video.
@@ -204,9 +178,6 @@ async def main():
     print(singleUrlA)
     print(allUrlsB)
 
-
-
-
     comments = Comments("_ZdsmLgCVdU")
 
     await comments.getNextComments()
@@ -217,21 +188,17 @@ async def main():
         print(len(comments.comments["result"]))
     print("Found all comments")
 
-
-    
     print(await Transcript.get("https://www.youtube.com/watch?v=L7kF4MXXCoA"))
-
 
     url = "https://www.youtube.com/watch?v=-1xu0IP35FI"
 
     transcript_en = await Transcript.get(url)
     # you actually don't have to pass a valid URL in following Transcript call. You can input an empty string, but I do recommend still inputing a valid URL.
-    transcript_2 = await Transcript.get(url, transcript_en["languages"][-1]["params"]) # in my case, it'd output Spanish.
+    transcript_2 = await Transcript.get(url,
+                                        transcript_en["languages"][-1]["params"])  # in my case, it'd output Spanish.
     print(transcript_2)
 
-
     print(await Channel.get("UC_aEa8K-EOJ3D6gOs7HcyNg"))
-
 
     # Retrieve playlists of a channel
     channel = Channel("UC_aEa8K-EOJ3D6gOs7HcyNg")
@@ -241,19 +208,16 @@ async def main():
         await channel.next()
         print(len(channel.result["playlists"]))
 
-
-
-
     '''
     You may add/omit the optional parameters according to your requirement & use case.
     '''
-
 
     '''
     Thanks for your support & love!
 
     - github.com/alexmercerind
     '''
+
 
 if __name__ == '__main__':
     asyncio.run(main())

@@ -1,10 +1,5 @@
-import collections
-import copy
-import itertools
 import json
-from typing import Iterable, Mapping, Tuple, TypeVar, Union, List
-from urllib.parse import urlencode
-from urllib.request import Request, urlopen
+from typing import Iterable, Mapping, TypeVar, Union, List
 
 from youtubesearchpython.core.componenthandler import getVideoId, getValue
 from youtubesearchpython.core.constants import *
@@ -123,7 +118,7 @@ class CommentsCore(RequestCore):
         comments = []
         for comment in self.responseSource:
             comment = getValue(comment, ["commentThreadRenderer", "comment", "commentRenderer"])
-            #print(json.dumps(comment, indent=4))
+            # print(json.dumps(comment, indent=4))
             try:
                 j = {
                     "id": self.__getValue(comment, ["commentId"]),
@@ -148,7 +143,9 @@ class CommentsCore(RequestCore):
                 pass
 
         self.commentsComponent["result"].extend(comments)
-        self.continuationKey = self.__getValue(self.responseSource, [-1, "continuationItemRenderer", "continuationEndpoint", "continuationCommand", "token"])
+        self.continuationKey = self.__getValue(self.responseSource,
+                                               [-1, "continuationItemRenderer", "continuationEndpoint",
+                                                "continuationCommand", "token"])
 
     def __result(self, mode: int) -> Union[dict, str]:
         if mode == ResultMode.dict:

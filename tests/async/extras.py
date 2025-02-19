@@ -1,5 +1,7 @@
-from youtubesearchpython.__future__ import *
 import asyncio
+
+from youtubesearchpython.__future__ import *
+
 
 async def main():
     video = await Video.get('https://www.youtube.com/watch?v=z0GKGpObgPY', get_upload_date=True)
@@ -9,15 +11,12 @@ async def main():
     videoFormats = await Video.getFormats('z0GKGpObgPY')
     print(videoFormats)
 
-
-    suggestions = await Suggestions.get('NoCopyrightSounds', language = 'en', region = 'US')
+    suggestions = await Suggestions.get('NoCopyrightSounds', language='en', region='US')
     print(suggestions)
 
-
-    hashtag = Hashtag('ncs', limit = 1)
+    hashtag = Hashtag('ncs', limit=1)
     result = await hashtag.next()
     print(result)
-
 
     fetcher = StreamURLFetcher()
     await fetcher.getJavaScript()
@@ -28,7 +27,6 @@ async def main():
     print(singleUrlA)
     print(allUrlsB)
 
-
     comments = Comments("_ZdsmLgCVdU")
     await comments.getNextComments()
     while len(comments.comments["result"]) < 100:
@@ -36,16 +34,14 @@ async def main():
         await comments.getNextComments()
     print("Found all comments")
 
-    
     print(await Transcript.get("https://www.youtube.com/watch?v=L7kF4MXXCoA"))
-
 
     url = "https://www.youtube.com/watch?v=-1xu0IP35FI"
 
     transcript_en = await Transcript.get(url)
-    transcript_2 = await Transcript.get(url, transcript_en["languages"][-1]["params"]) # in my case, it'd output Spanish.
+    transcript_2 = await Transcript.get(url,
+                                        transcript_en["languages"][-1]["params"])  # in my case, it'd output Spanish.
     print(transcript_2)
-
 
     print(await Channel.get("UC_aEa8K-EOJ3D6gOs7HcyNg"))
 

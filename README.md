@@ -141,8 +141,8 @@ videosResult = await videosSearch.next()
 print(videosResult)
 ```
 
-Read more about usage & examples of newer asynchronous version of this library [HERE](https://github.com/alexmercerind/youtube-search-python/tree/main/youtubesearchpython/__future__).
-
+Read more about usage & examples of newer asynchronous version of this
+library [HERE](https://github.com/alexmercerind/youtube-search-python/tree/main/youtubesearchpython/__future__).
 
 ## More Examples
 
@@ -612,8 +612,8 @@ print(allSearch.result())
 
 </details>
 
-You may see the [example](https://github.com/alexmercerind/youtube-search-python/blob/main/syncExample.py) for more information.
-
+You may see the [example](https://github.com/alexmercerind/youtube-search-python/blob/main/syncExample.py) for more
+information.
 
 ## Advanced
 
@@ -1070,7 +1070,9 @@ print(playlistVideos)
 </details>
 
 #### Get all videos of a channel
+
 You can use a Playlist class for that, alongside some helpful functions.
+
 ```python
 from youtubesearchpython import *
 
@@ -1119,9 +1121,11 @@ Found all the videos.
 
 #### More to the playlists
 
-You can directly instanciate the `Playlist` class as follows to access its information & videos in the `info` and `videos` fields respectively.
+You can directly instanciate the `Playlist` class as follows to access its information & videos in the `info` and
+`videos` fields respectively.
 
-YouTube offers only 100 videos in a single request, for getting more videos present in the playlist, you can check `hasMoreVideos` bool to see if playlist contains more videos.
+YouTube offers only 100 videos in a single request, for getting more videos present in the playlist, you can check
+`hasMoreVideos` bool to see if playlist contains more videos.
 If playlist has more videos, then you can call `getNextVideos` to fetch more videos.
 
 Example below demonstrates a simple way to retrive all videos of a playlist.
@@ -1345,7 +1349,8 @@ print(search.result(mode = ResultMode.json))
 
 #### Getting direct stream URL of a video
 
-This class is able to fetch video URLs without any additional web requests (that's fast), as one might already have same response at the time of showing it to the user.
+This class is able to fetch video URLs without any additional web requests (that's fast), as one might already have same
+response at the time of showing it to the user.
 
 For making use of this functionality, you must install [yt-dlp](https://github.com/yt-dlp/yt-dlp) as a dependency.
 StreamURLFetcher makes slight improvements & changes to YouTube class from [yt-dlp](https://github.com/yt-dlp/yt-dlp).
@@ -1372,7 +1377,9 @@ print(url)
 </details>
 
 #### Get comments of a video
+
 You can use a Comments class for that.
+
 ```python
 from youtubesearchpython import *
 
@@ -1410,7 +1417,9 @@ Getting more comments...
 </details>
 
 #### Get first 20 comments of a video
+
 You can use a Comments.get method for that.
+
 ```python
 from youtubesearchpython import *
 
@@ -2114,14 +2123,18 @@ print(comments)
 </details>
 
 #### Retrieve video transcript
+
 YouTube auto-generates transcripts (subtitles) for videos. You can retrieve those transcripts using Transcript class:
+
 ```py
 from youtubesearchpython import Transcript
 
 print(Transcript.get("https://www.youtube.com/watch?v=-1xu0IP35FI"))
 ```
 
-In response, you'll get available languages with `params` parameter. If you want to retrieve a different language, you have to pass the function that parameter. Example:
+In response, you'll get available languages with `params` parameter. If you want to retrieve a different language, you
+have to pass the function that parameter. Example:
+
 ```py
 from youtubesearchpython import Transcript
 
@@ -2201,10 +2214,11 @@ print(transcript_2)
    ]
 }
 ```
+
 </details>
 
-
 #### Retrieve channel info
+
 ```py
 from youtubesearchpython import Channel
 
@@ -2304,11 +2318,11 @@ print(Channel.get("UC_aEa8K-EOJ3D6gOs7HcyNg"))
     "country": "United Kingdom"
 }
 ```
+
 </details>
 
-
-
 #### Retrieve channel playlists
+
 ```py
 from youtubesearchpython import Channel
 
@@ -2326,10 +2340,11 @@ while channel.has_more_playlists():
 30
 49
 ```
+
 </details>
 
-
 ## Contributors
+
 Thanks to everyone contributing to this library, including those not mentioned here.
 
 I included only contributors and people, who we can thank for their extensive reports to make the library better.
@@ -2393,7 +2408,6 @@ Contributors are added irrespective of order.
   </li>
 </ul>
 
-
 ## License
 
 MIT License
@@ -2403,7 +2417,12 @@ Copyright (c) 2021 [Hitesh Kumar Saini](https://github.com/alexmercerind)
 ## Information
 
 - All the research, for making this library possible, is entirely done by myself.
-- You can use this library & segments of code from it in your projects in any way you want. Just respect the MIT license & credit the original author of the project.
-- Current version of this project (`main` branch) simulates the requests made by YouTube's web client during client side rendering. In simple words, it does not fetch any specific webpage's HTML, but the JSONs internally fetched by YouTube when you navigate the website, after loading the webpage completely.
-- I do not resist you from using this library in any possible manner, but YouTube T&C stop you from using this library commercially. Respect the law.
-- As you might tell by the name of the project, this library initially only used to support searching of videos. Later on, as the project grew, I added a lot of additional features after requests from people. Now, its really powerful.
+- You can use this library & segments of code from it in your projects in any way you want. Just respect the MIT
+  license & credit the original author of the project.
+- Current version of this project (`main` branch) simulates the requests made by YouTube's web client during client side
+  rendering. In simple words, it does not fetch any specific webpage's HTML, but the JSONs internally fetched by YouTube
+  when you navigate the website, after loading the webpage completely.
+- I do not resist you from using this library in any possible manner, but YouTube T&C stop you from using this library
+  commercially. Respect the law.
+- As you might tell by the name of the project, this library initially only used to support searching of videos. Later
+  on, as the project grew, I added a lot of additional features after requests from people. Now, its really powerful.

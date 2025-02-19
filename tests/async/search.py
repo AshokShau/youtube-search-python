@@ -1,31 +1,28 @@
-from youtubesearchpython.__future__ import *
 import asyncio
 
+from youtubesearchpython.__future__ import *
+
+
 async def main():
-    search = Search('NoCopyrightSounds', limit = 1, language = 'en', region = 'US')
+    search = Search('NoCopyrightSounds', limit=1, language='en', region='US')
     result = await search.next()
     print(result)
 
-
-    videosSearch = VideosSearch('NoCopyrightSounds', limit = 10, language = 'en', region = 'US')
+    videosSearch = VideosSearch('NoCopyrightSounds', limit=10, language='en', region='US')
     videosResult = await videosSearch.next()
     print(videosResult)
 
-
-    channelsSearch = ChannelsSearch('NoCopyrightSounds', limit = 1, language = 'en', region = 'US')
+    channelsSearch = ChannelsSearch('NoCopyrightSounds', limit=1, language='en', region='US')
     channelsResult = await channelsSearch.next()
     print(channelsResult)
 
-
-    playlistsSearch = PlaylistsSearch('NoCopyrightSounds', limit = 1, language = 'en', region = 'US')
+    playlistsSearch = PlaylistsSearch('NoCopyrightSounds', limit=1, language='en', region='US')
     playlistsResult = await playlistsSearch.next()
     print(playlistsResult)
 
-
-    customSearch = CustomSearch('NoCopyrightSounds', VideoSortOrder.uploadDate, language = 'en', region = 'US')
+    customSearch = CustomSearch('NoCopyrightSounds', VideoSortOrder.uploadDate, language='en', region='US')
     customResult = await customSearch.next()
     print(customResult)
-
 
     search = ChannelSearch('Watermelon Sugar', "UCZFWPqqPkFlNwIxcpsLOwew")
     result = await search.next()
@@ -44,7 +41,6 @@ async def main():
     result = await channel.next()
     print(result)
     """
-
 
     search = VideosSearch('NoCopyrightSounds')
     index = 0

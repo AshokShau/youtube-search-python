@@ -1,11 +1,11 @@
 import copy
-from typing import Union
 import json
+from typing import Union
 from urllib.parse import urlencode
 
+from youtubesearchpython.core.constants import *
 from youtubesearchpython.core.requests import RequestCore
 from youtubesearchpython.handlers.componenthandler import ComponentHandler
-from youtubesearchpython.core.constants import *
 
 
 class ChannelSearchCore(RequestCore, ComponentHandler):
@@ -94,4 +94,3 @@ class ChannelSearchCore(RequestCore, ComponentHandler):
             return json.dumps({'result': self.response}, indent=4)
         elif mode == ResultMode.dict:
             return {'result': self.response}
-

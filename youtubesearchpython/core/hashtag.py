@@ -36,7 +36,7 @@ class HashtagCore(ComponentHandler):
             Union[str, dict]: Returns JSON or dictionary.
         '''
         if mode == ResultMode.json:
-            return json.dumps({'result': self.resultComponents}, indent = 4)
+            return json.dumps({'result': self.resultComponents}, indent=4)
         elif mode == ResultMode.dict:
             return {'result': self.resultComponents}
 
@@ -66,8 +66,8 @@ class HashtagCore(ComponentHandler):
             'https://www.youtube.com/youtubei/v1/search' + '?' + urlencode({
                 'key': searchKey,
             }),
-            data = requestBodyBytes,
-            headers = {
+            data=requestBodyBytes,
+            headers={
                 'Content-Type': 'application/json; charset=utf-8',
                 'Content-Length': len(requestBodyBytes),
                 'User-Agent': userAgent,
@@ -94,14 +94,14 @@ class HashtagCore(ComponentHandler):
             async with httpx.AsyncClient() as client:
                 response = await client.post(
                     'https://www.youtube.com/youtubei/v1/search',
-                    params = {
+                    params={
                         'key': searchKey,
                     },
-                    headers = {
+                    headers={
                         'User-Agent': userAgent,
                     },
-                    json = requestBody,
-                    timeout = self.timeout
+                    json=requestBody,
+                    timeout=self.timeout
                 )
                 response = response.json()
         except:
@@ -129,8 +129,8 @@ class HashtagCore(ComponentHandler):
             'https://www.youtube.com/youtubei/v1/browse' + '?' + urlencode({
                 'key': searchKey,
             }),
-            data = requestBodyBytes,
-            headers = {
+            data=requestBodyBytes,
+            headers={
                 'Content-Type': 'application/json; charset=utf-8',
                 'Content-Length': len(requestBodyBytes),
                 'User-Agent': userAgent,
@@ -157,14 +157,14 @@ class HashtagCore(ComponentHandler):
             async with httpx.AsyncClient() as client:
                 response = await client.post(
                     'https://www.youtube.com/youtubei/v1/browse',
-                    params = {
+                    params={
                         'key': searchKey,
                     },
-                    headers = {
+                    headers={
                         'User-Agent': userAgent,
                     },
-                    json = requestBody,
-                    timeout = self.timeout
+                    json=requestBody,
+                    timeout=self.timeout
                 )
                 self.response = response.content
         except:

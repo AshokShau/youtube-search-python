@@ -30,4 +30,3 @@ def getVideoId(videoLink: str) -> str:
         return videoLink[videoLink.index('v=') + 2: videoLink.index('&')]
     else:
         return videoLink
-

@@ -1,2 +1,2 @@
-from .video import VideoCore
 from .constants import *
+from .video import VideoCore
